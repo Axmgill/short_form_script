@@ -1,0 +1,14 @@
+Hook (0-3s):
+Open laptops in a small meeting kill real conversation before anyone speaks.
+
+Story (3-31s):
+For months, my small design team sat in recurring status meetings with everyone's laptops open. People kept half-listening while answering Slack messages. Last month, I tried an experiment. I left my laptop at my desk and walked in with a single index card for notes. Within a week, the rest of the team started closing their screens too. Everyone paid attention, and our meetings got noticeably shorter.
+
+Turn (31-46s):
+A screen between teammates splits everyone's focus in half. Once the lids stay closed, people stop dividing their attention with Slack and talk through the real problem together.
+
+Takeaway (46-56s):
+For your next internal meeting, leave your laptop at your desk and bring one index card for notes instead.
+
+Closer (56-60s):
+Close the screen so the real meeting can start.

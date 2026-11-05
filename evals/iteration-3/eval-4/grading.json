@@ -1,0 +1,72 @@
+{
+  "expectations": [
+    {
+      "text": "Selects the 120s Deep Narrative / Case Breakdown tier with exact beat labels Hook (0-4s), Story (4-68s), Turn (68-98s), Takeaway (98-115s), and Closer (115-120s)",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Deep Narrative / Case Breakdown (120s): 292 spoken words in target [267, 320], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Spoken word count (excluding beat labels) is within 267-320 words",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Deep Narrative / Case Breakdown (120s): 292 spoken words in target [267, 320], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Hook is one striking opening sentence with no greeting or setup",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Deep Narrative / Case Breakdown (120s): 292 spoken words in target [267, 320], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Takeaway includes exactly one practical action (replace hourly rate with one flat price tied to clear deliverables on next client proposal)",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Deep Narrative / Case Breakdown (120s): 292 spoken words in target [267, 320], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Deep Narrative / Case Breakdown (120s): 292 spoken words in target [267, 320], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "No invented dollar amounts, percentages, client names, or facts beyond the user's story",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Deep Narrative / Case Breakdown (120s): 292 spoken words in target [267, 320], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Reads naturally aloud across all 120 seconds with varied spoken cadence and zero AI tells",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Deep Narrative / Case Breakdown (120s): 292 spoken words in target [267, 320], zero warnings) and manual accuracy/research audit."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  },
+  "validator_result": {
+    "valid": true,
+    "duration_seconds": 120,
+    "tier": "Deep Narrative / Case Breakdown (120s)",
+    "expected_boundaries": [
+      0,
+      4,
+      68,
+      98,
+      115,
+      120
+    ],
+    "spoken_word_count": 292,
+    "target_word_range": [
+      267,
+      320
+    ],
+    "beat_word_counts": {
+      "Hook": 14,
+      "Story": 174,
+      "Turn": 65,
+      "Takeaway": 26,
+      "Closer": 13
+    },
+    "errors": [],
+    "warnings": []
+  }
+}

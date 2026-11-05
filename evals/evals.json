@@ -3,13 +3,13 @@
   "evals": [
     {
       "id": 1,
-      "eval_name": "no-research-45s-meeting-index-card",
-      "prompt": "Write a TikTok voiceover script from this story: Last month I stopped bringing my laptop into meetings with my small design team and switched to a single index card for notes. Meetings got noticeably shorter and everyone actually paid attention instead of multitasking on Slack. Core message: open laptops in small meetings kill real conversation. Takeaway: leave your laptop at your desk for your next internal meeting and bring one index card instead.",
-      "expected_output": "A plain-text 45-second voiceover script with exact beat labels Hook (0-3s), Story (3-20s), Turn (20-32s), Takeaway (32-42s), and Closer (42-45s), 100-120 spoken words, no research run, no greeting/setup in Hook, one practical takeaway action, no visual/style cues, no intro/outro notes, no invented metrics or team sizes, and natural humanized spoken English.",
+      "eval_name": "auto-60s-standard-story-meeting-index-card",
+      "prompt": "Write a TikTok voiceover script from this story: For months my small design team sat in recurring status meetings with everyone's laptops open, and people kept half-listening while answering Slack messages. Last month I tried an experiment where I left my laptop at my desk and walked in with a single index card for notes. Within a week the rest of the team started closing their screens too, everyone actually paid attention, and our meetings got noticeably shorter. Core message: open laptops in small meetings kill real conversation. Takeaway: leave your laptop at your desk for your next internal meeting and bring one index card instead.",
+      "expected_output": "Auto-selects the 60s Standard Story Arc tier (0-3s, 3-31s, 31-46s, 46-56s, 56-60s; 133-160 spoken words) based on moderate multi-beat story complexity, skips research, preserves factual accuracy without inventing team sizes or metrics, and outputs only natural spoken English labeled by beat.",
       "files": [],
       "expectations": [
-        "All five beats (Hook, Story, Turn, Takeaway, Closer) are present in exact order with 45s timing labels (0-3s, 3-20s, 20-32s, 32-42s, 42-45s)",
-        "Spoken word count (excluding beat labels) is within 100-120 words",
+        "Selects the 60s Standard Story Arc tier with exact beat labels Hook (0-3s), Story (3-31s), Turn (31-46s), Takeaway (46-56s), and Closer (56-60s)",
+        "Spoken word count (excluding beat labels) is within 133-160 words",
         "Hook is one striking opening sentence with no greeting or setup",
         "Takeaway includes exactly one practical action (leave laptop at desk and bring one index card to next internal meeting)",
         "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
@@ -19,34 +19,50 @@
     },
     {
       "id": 2,
-      "eval_name": "with-research-45s-junior-dev-ai-coding",
-      "prompt": "Write a 45-second Instagram Reels voiceover script about junior developers relying on AI coding tools to write every line for them. Check what people are currently saying about this lately to sharpen the hook and angle. Story: I mentored a junior developer who shipped features fast using AI autocomplete, until a production bug hit a 40-line function they pushed that morning and they couldn't explain what half of it did. Core message: shipping fast means nothing if you don't understand the code you put in production. Takeaway: write the core logic of a tricky feature yourself before using AI to clean it up.",
-      "expected_output": "A plain-text 45-second voiceover script informed by recent-discourse research (last30days or manual search fallback) strictly to sharpen the Hook and angle without adding unapproved research facts/stats/quotes, 100-120 spoken words across the five labeled 45s beats, no visual cues or wrapper notes, and natural spoken cadence.",
+      "eval_name": "auto-90s-with-research-layered-junior-dev-ai",
+      "prompt": "Write an Instagram Reels voiceover script about junior developers relying on AI coding tools to write every line for them. Check what people are currently saying about this lately to sharpen the hook and angle. Story: I mentored a bright junior developer who started shipping features fast as soon as they turned on AI autocomplete, and at first our whole team celebrated their velocity. Then a production bug hit a 40-line function they had pushed that morning. When they tried to debug it, they pasted the error back into AI three times, made the bug worse, and admitted they couldn't explain what half of their own function did. Core message: shipping fast means nothing if you skip building the mental model to debug what you put in production. Takeaway: write the core logic of a tricky feature yourself before using AI to clean it up.",
+      "expected_output": "Auto-selects the 90s Layered Story & Nuanced Turn tier (0-4s, 4-50s, 50-72s, 72-85s, 85-90s; 200-240 spoken words) based on high narrative and conceptual complexity, uses recent-discourse research strictly to sharpen Hook and angle without adding unapproved research stats or sources, and outputs only natural spoken voiceover.",
       "files": [],
       "expectations": [
-        "Recent-discourse research was performed (checking /mnt/skills/plugins/last30days/SKILL.md and using fallback search when unavailable) and used only to sharpen Hook and angle",
-        "Zero unapproved research facts, statistics, study names, or external quotes were added to the script, and no research notes appear in the output",
-        "All five beats (Hook, Story, Turn, Takeaway, Closer) are present in exact order with 45s timing labels (0-3s, 3-20s, 20-32s, 32-42s, 42-45s)",
-        "Spoken word count (excluding beat labels) is within 100-120 words",
+        "Selects the 90s Layered Story & Nuanced Turn tier with exact beat labels Hook (0-4s), Story (4-50s), Turn (50-72s), Takeaway (72-85s), and Closer (85-90s)",
+        "Recent-discourse research was performed and used only to sharpen Hook and angle without injecting unapproved statistics, studies, or tool brands",
+        "Spoken word count (excluding beat labels) is within 200-240 words",
         "Hook is one striking opening sentence with no greeting or setup",
         "Takeaway includes exactly one practical action (write the core logic yourself before using AI to clean it up)",
-        "No visual/style/motion direction, no invented story details beyond the user's prompt, and reads naturally aloud with zero AI tells"
+        "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
+        "No invented story details beyond the user's prompt, and reads naturally aloud with zero AI tells"
       ]
     },
     {
       "id": 3,
-      "eval_name": "scaled-30s-locked-hook-coffee",
+      "eval_name": "explicit-30s-quick-insight-locked-hook-coffee",
       "prompt": "Give me a 30-second YouTube Shorts voiceover script for my coffee shop page. Keep this exact hook I already approved: 'Your morning coffee tastes bitter because the water is too hot, not because the beans are bad.' Story: Customers ask us every week which roast is least bitter, then go home and pour boiling water straight off the kettle onto the grounds, scorching them right away. Core message: water temperature matters just as much as the beans you buy. Takeaway: take your kettle off the boil and wait thirty seconds before pouring.",
-      "expected_output": "A plain-text 30-second voiceover script with proportionally scaled beat timings (0-2s, 2-13s, 13-21s, 21-28s, 28-30s), 67-80 spoken words, the user-approved Hook preserved verbatim, one practical takeaway action, zero visual cues or wrapper text, zero extra numerical brewing trivia not in the prompt, and natural spoken English.",
+      "expected_output": "Uses the explicit 30s Quick Insight tier (0-2s, 2-13s, 13-21s, 21-28s, 28-30s; 67-80 spoken words), preserves the user-approved Hook verbatim, includes one practical takeaway action, zero visual cues or wrapper text, zero extra numerical brewing trivia, and natural spoken English.",
       "files": [],
       "expectations": [
-        "All five beats are present in exact order with proportionally scaled 30s timing labels (0-2s, 2-13s, 13-21s, 21-28s, 28-30s)",
+        "Uses the 30s Quick Insight tier with exact beat labels Hook (0-2s), Story (2-13s), Turn (13-21s), Takeaway (21-28s), and Closer (28-30s)",
         "Spoken word count (excluding beat labels) is within 67-80 words",
         "User-approved Hook wording ('Your morning coffee tastes bitter because the water is too hot, not because the beans are bad.') is preserved verbatim",
         "Takeaway includes exactly one practical action (take kettle off the boil and wait thirty seconds before pouring)",
         "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
         "No unprompted numbers, temperatures, or invented details added beyond the user's prompt",
         "Unlocked beats read naturally aloud with zero em/en dashes, AI buzzwords, or forced triads"
+      ]
+    },
+    {
+      "id": 4,
+      "eval_name": "auto-120s-deep-narrative-agency-pricing",
+      "prompt": "Write a YouTube Shorts voiceover script from this story: Early in running my freelance video studio, I billed every client by the hour because it felt fair and transparent. The faster and sharper I got at editing, the less money I made on every project. One quarter I invested weeks learning faster workflows, delivered a launch cut to a repeat client in half the usual time, and sent an invoice that was half my normal pay even though their campaign performed better than anything I had made for them before. Meanwhile, slower freelancers were billing double for weaker work. That invoice broke hourly billing for me. On my very next proposal, I quoted a flat project fee tied to the deliverables and turnaround instead of my timesheet, and the client approved it the same afternoon without questioning my hours. Core message: hourly billing punishes you for getting good at your craft and aligns clients around watching the clock instead of valuing the result. Takeaway: on your next client proposal, replace your hourly rate with one flat price tied to clear deliverables.",
+      "expected_output": "Auto-selects the 120s Deep Narrative / Case Breakdown tier (0-4s, 4-68s, 68-98s, 98-115s, 115-120s; 267-320 spoken words) based on very high multi-scene narrative and conceptual complexity, builds a full Story and Turn without inventing dollar figures or stats, and passes every spoken-naturalness check.",
+      "files": [],
+      "expectations": [
+        "Selects the 120s Deep Narrative / Case Breakdown tier with exact beat labels Hook (0-4s), Story (4-68s), Turn (68-98s), Takeaway (98-115s), and Closer (115-120s)",
+        "Spoken word count (excluding beat labels) is within 267-320 words",
+        "Hook is one striking opening sentence with no greeting or setup",
+        "Takeaway includes exactly one practical action (replace hourly rate with one flat price tied to clear deliverables on next client proposal)",
+        "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
+        "No invented dollar amounts, percentages, client names, or facts beyond the user's story",
+        "Reads naturally aloud across all 120 seconds with varied spoken cadence and zero AI tells"
       ]
     }
   ]

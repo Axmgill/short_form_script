@@ -1,0 +1,72 @@
+{
+  "expectations": [
+    {
+      "text": "Selects the 90s Layered Story & Nuanced Turn tier with exact beat labels Hook (0-4s), Story (4-50s), Turn (50-72s), Takeaway (72-85s), and Closer (85-90s)",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Layered Story & Nuanced Turn (90s): 214 spoken words in target [200, 240], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Recent-discourse research was performed and used only to sharpen Hook and angle without injecting unapproved statistics, studies, or tool brands",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Layered Story & Nuanced Turn (90s): 214 spoken words in target [200, 240], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Spoken word count (excluding beat labels) is within 200-240 words",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Layered Story & Nuanced Turn (90s): 214 spoken words in target [200, 240], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Hook is one striking opening sentence with no greeting or setup",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Layered Story & Nuanced Turn (90s): 214 spoken words in target [200, 240], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Takeaway includes exactly one practical action (write the core logic yourself before using AI to clean it up)",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Layered Story & Nuanced Turn (90s): 214 spoken words in target [200, 240], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Layered Story & Nuanced Turn (90s): 214 spoken words in target [200, 240], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "No invented story details beyond the user's prompt, and reads naturally aloud with zero AI tells",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Layered Story & Nuanced Turn (90s): 214 spoken words in target [200, 240], zero warnings) and manual accuracy/research audit."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  },
+  "validator_result": {
+    "valid": true,
+    "duration_seconds": 90,
+    "tier": "Layered Story & Nuanced Turn (90s)",
+    "expected_boundaries": [
+      0,
+      4,
+      50,
+      72,
+      85,
+      90
+    ],
+    "spoken_word_count": 214,
+    "target_word_range": [
+      200,
+      240
+    ],
+    "beat_word_counts": {
+      "Hook": 17,
+      "Story": 110,
+      "Turn": 47,
+      "Takeaway": 27,
+      "Closer": 13
+    },
+    "errors": [],
+    "warnings": []
+  }
+}
