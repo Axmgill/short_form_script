@@ -1,0 +1,65 @@
+{
+  "expectations": [
+    {
+      "text": "All five beats are present in exact order with proportionally scaled 30s timing labels (0-2s, 2-13s, 13-21s, 21-28s, 28-30s)",
+      "passed": true,
+      "evidence": "Validated against output (92 spoken words)."
+    },
+    {
+      "text": "Spoken word count (excluding beat labels) is within 67-80 words",
+      "passed": false,
+      "evidence": "Spoken word count is 92 words, outside target range 67-80 words for 30s (trim at least 12 words)."
+    },
+    {
+      "text": "User-approved Hook wording ('Your morning coffee tastes bitter because the water is too hot, not because the beans are bad.') is preserved verbatim",
+      "passed": true,
+      "evidence": "Validated against output (92 spoken words)."
+    },
+    {
+      "text": "Takeaway includes exactly one practical action (take kettle off the boil and wait thirty seconds before pouring)",
+      "passed": true,
+      "evidence": "Validated against output (92 spoken words)."
+    },
+    {
+      "text": "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
+      "passed": true,
+      "evidence": "Validated against output (92 spoken words)."
+    },
+    {
+      "text": "No unprompted numbers, temperatures, or invented details added beyond the user's prompt",
+      "passed": true,
+      "evidence": "Validated against output (92 spoken words)."
+    },
+    {
+      "text": "Unlocked beats read naturally aloud with zero em/en dashes, AI buzzwords, or forced triads",
+      "passed": true,
+      "evidence": "Validated against output (92 spoken words)."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 1,
+    "total": 7,
+    "pass_rate": 0.86
+  },
+  "validator_result": {
+    "valid": false,
+    "duration_seconds": 30,
+    "spoken_word_count": 92,
+    "target_word_range": [
+      67,
+      80
+    ],
+    "beat_word_counts": {
+      "Hook": 17,
+      "Story": 29,
+      "Turn": 21,
+      "Takeaway": 14,
+      "Closer": 11
+    },
+    "errors": [
+      "Spoken word count is 92 words, outside target range 67-80 words for 30s (trim at least 12 words)."
+    ],
+    "warnings": []
+  }
+}

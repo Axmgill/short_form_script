@@ -1,0 +1,63 @@
+{
+  "expectations": [
+    {
+      "text": "All five beats (Hook, Story, Turn, Takeaway, Closer) are present in exact order with 45s timing labels (0-3s, 3-20s, 20-32s, 32-42s, 42-45s)",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (107 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "Spoken word count (excluding beat labels) is within 100-120 words",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (107 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "Hook is one striking opening sentence with no greeting or setup",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (107 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "Takeaway includes exactly one practical action (leave laptop at desk and bring one index card to next internal meeting)",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (107 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (107 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "No invented facts, team sizes, durations, or percentages beyond the user's input",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (107 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "Reads naturally aloud with zero em/en dashes, AI buzzwords, rule-of-three padding, or 'not X, it's Y' contrast cliches",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (107 spoken words in target [100, 120]) and manual accuracy/research audit."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  },
+  "validator_result": {
+    "valid": true,
+    "duration_seconds": 45,
+    "spoken_word_count": 107,
+    "target_word_range": [
+      100,
+      120
+    ],
+    "beat_word_counts": {
+      "Hook": 12,
+      "Story": 43,
+      "Turn": 26,
+      "Takeaway": 17,
+      "Closer": 9
+    },
+    "errors": [],
+    "warnings": []
+  }
+}

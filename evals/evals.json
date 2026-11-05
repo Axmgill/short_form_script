@@ -1,0 +1,53 @@
+{
+  "skill_name": "short-form-script-writer-pro",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "no-research-45s-meeting-index-card",
+      "prompt": "Write a TikTok voiceover script from this story: Last month I stopped bringing my laptop into meetings with my small design team and switched to a single index card for notes. Meetings got noticeably shorter and everyone actually paid attention instead of multitasking on Slack. Core message: open laptops in small meetings kill real conversation. Takeaway: leave your laptop at your desk for your next internal meeting and bring one index card instead.",
+      "expected_output": "A plain-text 45-second voiceover script with exact beat labels Hook (0-3s), Story (3-20s), Turn (20-32s), Takeaway (32-42s), and Closer (42-45s), 100-120 spoken words, no research run, no greeting/setup in Hook, one practical takeaway action, no visual/style cues, no intro/outro notes, no invented metrics or team sizes, and natural humanized spoken English.",
+      "files": [],
+      "expectations": [
+        "All five beats (Hook, Story, Turn, Takeaway, Closer) are present in exact order with 45s timing labels (0-3s, 3-20s, 20-32s, 32-42s, 42-45s)",
+        "Spoken word count (excluding beat labels) is within 100-120 words",
+        "Hook is one striking opening sentence with no greeting or setup",
+        "Takeaway includes exactly one practical action (leave laptop at desk and bring one index card to next internal meeting)",
+        "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
+        "No invented facts, team sizes, durations, or percentages beyond the user's input",
+        "Reads naturally aloud with zero em/en dashes, AI buzzwords, rule-of-three padding, or 'not X, it's Y' contrast cliches"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "with-research-45s-junior-dev-ai-coding",
+      "prompt": "Write a 45-second Instagram Reels voiceover script about junior developers relying on AI coding tools to write every line for them. Check what people are currently saying about this lately to sharpen the hook and angle. Story: I mentored a junior developer who shipped features fast using AI autocomplete, until a production bug hit a 40-line function they pushed that morning and they couldn't explain what half of it did. Core message: shipping fast means nothing if you don't understand the code you put in production. Takeaway: write the core logic of a tricky feature yourself before using AI to clean it up.",
+      "expected_output": "A plain-text 45-second voiceover script informed by recent-discourse research (last30days or manual search fallback) strictly to sharpen the Hook and angle without adding unapproved research facts/stats/quotes, 100-120 spoken words across the five labeled 45s beats, no visual cues or wrapper notes, and natural spoken cadence.",
+      "files": [],
+      "expectations": [
+        "Recent-discourse research was performed (checking /mnt/skills/plugins/last30days/SKILL.md and using fallback search when unavailable) and used only to sharpen Hook and angle",
+        "Zero unapproved research facts, statistics, study names, or external quotes were added to the script, and no research notes appear in the output",
+        "All five beats (Hook, Story, Turn, Takeaway, Closer) are present in exact order with 45s timing labels (0-3s, 3-20s, 20-32s, 32-42s, 42-45s)",
+        "Spoken word count (excluding beat labels) is within 100-120 words",
+        "Hook is one striking opening sentence with no greeting or setup",
+        "Takeaway includes exactly one practical action (write the core logic yourself before using AI to clean it up)",
+        "No visual/style/motion direction, no invented story details beyond the user's prompt, and reads naturally aloud with zero AI tells"
+      ]
+    },
+    {
+      "id": 3,
+      "eval_name": "scaled-30s-locked-hook-coffee",
+      "prompt": "Give me a 30-second YouTube Shorts voiceover script for my coffee shop page. Keep this exact hook I already approved: 'Your morning coffee tastes bitter because the water is too hot, not because the beans are bad.' Story: Customers ask us every week which roast is least bitter, then go home and pour boiling water straight off the kettle onto the grounds, scorching them right away. Core message: water temperature matters just as much as the beans you buy. Takeaway: take your kettle off the boil and wait thirty seconds before pouring.",
+      "expected_output": "A plain-text 30-second voiceover script with proportionally scaled beat timings (0-2s, 2-13s, 13-21s, 21-28s, 28-30s), 67-80 spoken words, the user-approved Hook preserved verbatim, one practical takeaway action, zero visual cues or wrapper text, zero extra numerical brewing trivia not in the prompt, and natural spoken English.",
+      "files": [],
+      "expectations": [
+        "All five beats are present in exact order with proportionally scaled 30s timing labels (0-2s, 2-13s, 13-21s, 21-28s, 28-30s)",
+        "Spoken word count (excluding beat labels) is within 67-80 words",
+        "User-approved Hook wording ('Your morning coffee tastes bitter because the water is too hot, not because the beans are bad.') is preserved verbatim",
+        "Takeaway includes exactly one practical action (take kettle off the boil and wait thirty seconds before pouring)",
+        "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
+        "No unprompted numbers, temperatures, or invented details added beyond the user's prompt",
+        "Unlocked beats read naturally aloud with zero em/en dashes, AI buzzwords, or forced triads"
+      ]
+    }
+  ]
+}

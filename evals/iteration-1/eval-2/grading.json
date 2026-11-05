@@ -1,0 +1,63 @@
+{
+  "expectations": [
+    {
+      "text": "Recent-discourse research was performed (checking /mnt/skills/plugins/last30days/SKILL.md and using fallback search when unavailable) and used only to sharpen Hook and angle",
+      "passed": true,
+      "evidence": "Validated against output (116 spoken words)."
+    },
+    {
+      "text": "Zero unapproved research facts, statistics, study names, or external quotes were added to the script, and no research notes appear in the output",
+      "passed": true,
+      "evidence": "Validated against output (116 spoken words)."
+    },
+    {
+      "text": "All five beats (Hook, Story, Turn, Takeaway, Closer) are present in exact order with 45s timing labels (0-3s, 3-20s, 20-32s, 32-42s, 42-45s)",
+      "passed": true,
+      "evidence": "Validated against output (116 spoken words)."
+    },
+    {
+      "text": "Spoken word count (excluding beat labels) is within 100-120 words",
+      "passed": true,
+      "evidence": "Validated against output (116 spoken words)."
+    },
+    {
+      "text": "Hook is one striking opening sentence with no greeting or setup",
+      "passed": true,
+      "evidence": "Validated against output (116 spoken words)."
+    },
+    {
+      "text": "Takeaway includes exactly one practical action (write the core logic yourself before using AI to clean it up)",
+      "passed": true,
+      "evidence": "Validated against output (116 spoken words)."
+    },
+    {
+      "text": "No visual/style/motion direction, no invented story details beyond the user's prompt, and reads naturally aloud with zero AI tells",
+      "passed": false,
+      "evidence": "Hook introduced unprompted rhetorical durations ('in ten minutes', 'all afternoon') and Story added 'opened the file together'"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 1,
+    "total": 7,
+    "pass_rate": 0.86
+  },
+  "validator_result": {
+    "valid": true,
+    "duration_seconds": 45,
+    "spoken_word_count": 116,
+    "target_word_range": [
+      100,
+      120
+    ],
+    "beat_word_counts": {
+      "Hook": 15,
+      "Story": 40,
+      "Turn": 30,
+      "Takeaway": 20,
+      "Closer": 11
+    },
+    "errors": [],
+    "warnings": []
+  }
+}

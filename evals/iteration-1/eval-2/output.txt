@@ -1,0 +1,14 @@
+Hook (0-3s):
+Shipping code in ten minutes hurts when you spend all afternoon scared to touch it.
+
+Story (3-20s):
+I mentored a junior developer who shipped features fast with AI autocomplete. Then a production bug hit a 40-line function they pushed that morning. When we opened the file together, they couldn't explain what half of their own code did.
+
+Turn (20-32s):
+Shipping fast means nothing if you don't understand what you put in production. Skipping the struggle of writing the logic skips building the mental model you need when things break.
+
+Takeaway (32-42s):
+Next time you build a tricky feature, write the core logic yourself first before using AI to clean it up.
+
+Closer (42-45s):
+If you can't explain the code, you don't own it yet.
