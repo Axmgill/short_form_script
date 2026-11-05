@@ -1,0 +1,65 @@
+{
+  "expectations": [
+    {
+      "text": "All five beats (Hook, Story, Turn, Takeaway, Closer) are present in exact order with 45s timing labels (0-3s, 3-20s, 20-32s, 32-42s, 42-45s)",
+      "passed": true,
+      "evidence": "Validated against output (115 spoken words)."
+    },
+    {
+      "text": "Spoken word count (excluding beat labels) is within 100-120 words",
+      "passed": true,
+      "evidence": "Validated against output (115 spoken words)."
+    },
+    {
+      "text": "Hook is one striking opening sentence with no greeting or setup",
+      "passed": true,
+      "evidence": "Validated against output (115 spoken words)."
+    },
+    {
+      "text": "Takeaway includes exactly one practical action (leave laptop at desk and bring one index card to next internal meeting)",
+      "passed": true,
+      "evidence": "Validated against output (115 spoken words)."
+    },
+    {
+      "text": "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
+      "passed": true,
+      "evidence": "Validated against output (115 spoken words)."
+    },
+    {
+      "text": "No invented facts, team sizes, durations, or percentages beyond the user's input",
+      "passed": false,
+      "evidence": "Embellished 'under the table' beyond prompt's 'multitasking on Slack'"
+    },
+    {
+      "text": "Reads naturally aloud with zero em/en dashes, AI buzzwords, rule-of-three padding, or 'not X, it's Y' contrast cliches",
+      "passed": false,
+      "evidence": "Contains 'quietly' (humanizer \u00a712 AI watch word)"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 2,
+    "total": 7,
+    "pass_rate": 0.71
+  },
+  "validator_result": {
+    "valid": false,
+    "duration_seconds": 45,
+    "spoken_word_count": 115,
+    "target_word_range": [
+      100,
+      120
+    ],
+    "beat_word_counts": {
+      "Hook": 12,
+      "Story": 45,
+      "Turn": 29,
+      "Takeaway": 19,
+      "Closer": 10
+    },
+    "errors": [
+      "Found AI-sounding buzzword 'quietly'; replace with plain spoken English."
+    ],
+    "warnings": []
+  }
+}

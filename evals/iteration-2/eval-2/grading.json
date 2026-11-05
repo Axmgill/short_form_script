@@ -1,0 +1,63 @@
+{
+  "expectations": [
+    {
+      "text": "Recent-discourse research was performed (checking /mnt/skills/plugins/last30days/SKILL.md and using fallback search when unavailable) and used only to sharpen Hook and angle",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (112 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "Zero unapproved research facts, statistics, study names, or external quotes were added to the script, and no research notes appear in the output",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (112 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "All five beats (Hook, Story, Turn, Takeaway, Closer) are present in exact order with 45s timing labels (0-3s, 3-20s, 20-32s, 32-42s, 42-45s)",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (112 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "Spoken word count (excluding beat labels) is within 100-120 words",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (112 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "Hook is one striking opening sentence with no greeting or setup",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (112 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "Takeaway includes exactly one practical action (write the core logic yourself before using AI to clean it up)",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (112 spoken words in target [100, 120]) and manual accuracy/research audit."
+    },
+    {
+      "text": "No visual/style/motion direction, no invented story details beyond the user's prompt, and reads naturally aloud with zero AI tells",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (112 spoken words in target [100, 120]) and manual accuracy/research audit."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  },
+  "validator_result": {
+    "valid": true,
+    "duration_seconds": 45,
+    "spoken_word_count": 112,
+    "target_word_range": [
+      100,
+      120
+    ],
+    "beat_word_counts": {
+      "Hook": 17,
+      "Story": 38,
+      "Turn": 28,
+      "Takeaway": 19,
+      "Closer": 10
+    },
+    "errors": [],
+    "warnings": []
+  }
+}

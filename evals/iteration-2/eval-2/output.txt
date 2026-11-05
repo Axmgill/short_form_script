@@ -1,0 +1,14 @@
+Hook (0-3s):
+Shipping code fast feels great until your own code breaks and looks like a stranger wrote it.
+
+Story (3-20s):
+I mentored a junior developer who shipped features fast using AI autocomplete. Then a production bug hit a 40-line function they had pushed that morning. When it broke, they couldn't explain what half of their own function did.
+
+Turn (20-32s):
+Speed means nothing if you don't understand the code you put into production. Letting AI write every line skips the struggle that teaches you how the system works.
+
+Takeaway (32-42s):
+Next time you tackle a tricky feature, write the core logic yourself before using AI to clean it up.
+
+Closer (42-45s):
+If you can't explain the code, you don't own it.
