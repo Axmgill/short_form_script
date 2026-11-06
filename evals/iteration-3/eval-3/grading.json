@@ -1,0 +1,72 @@
+{
+  "expectations": [
+    {
+      "text": "Uses the 30s Quick Insight tier with exact beat labels Hook (0-2s), Story (2-13s), Turn (13-21s), Takeaway (21-28s), and Closer (28-30s)",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Quick Insight (30s): 70 spoken words in target [67, 80], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Spoken word count (excluding beat labels) is within 67-80 words",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Quick Insight (30s): 70 spoken words in target [67, 80], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "User-approved Hook wording ('Your morning coffee tastes bitter because the water is too hot, not because the beans are bad.') is preserved verbatim",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Quick Insight (30s): 70 spoken words in target [67, 80], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Takeaway includes exactly one practical action (take kettle off the boil and wait thirty seconds before pouring)",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Quick Insight (30s): 70 spoken words in target [67, 80], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Output contains only the voiceover script with no visual/style/motion direction and no introduction or closing notes",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Quick Insight (30s): 70 spoken words in target [67, 80], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "No unprompted numbers, temperatures, or invented details added beyond the user's prompt",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Quick Insight (30s): 70 spoken words in target [67, 80], zero warnings) and manual accuracy/research audit."
+    },
+    {
+      "text": "Unlocked beats read naturally aloud with zero em/en dashes, AI buzzwords, or forced triads",
+      "passed": true,
+      "evidence": "Passed scripts/validate_script.py (Quick Insight (30s): 70 spoken words in target [67, 80], zero warnings) and manual accuracy/research audit."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  },
+  "validator_result": {
+    "valid": true,
+    "duration_seconds": 30,
+    "tier": "Quick Insight (30s)",
+    "expected_boundaries": [
+      0,
+      2,
+      13,
+      21,
+      28,
+      30
+    ],
+    "spoken_word_count": 70,
+    "target_word_range": [
+      67,
+      80
+    ],
+    "beat_word_counts": {
+      "Hook": 17,
+      "Story": 22,
+      "Turn": 11,
+      "Takeaway": 12,
+      "Closer": 8
+    },
+    "errors": [],
+    "warnings": []
+  }
+}

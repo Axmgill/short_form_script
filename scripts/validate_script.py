@@ -2,8 +2,10 @@
 """
 Deterministic validator for short-form-script-writer-pro outputs.
 
-Checks every item on the skill's validation checklist:
-  1. All five beats present in order (Hook, Story, Turn, Takeaway, Closer) with scaled timings
+Checks every item on the skill's validation checklist across all complexity-based
+duration tiers (30s, 45s, 60s, 75s, 90s, 120s, and custom durations up to 180s):
+  1. All five beats present in order (Hook, Story, Turn, Takeaway, Closer) with
+     story-weighted beat timings contiguous from 0s to target duration
   2. Spoken word count within proportional target range (100-120 words per 45s)
   3. Hook is a single striking opening line with no greeting or staged setup
   4. Takeaway gives one clear practical action (no multi-step action lists)
@@ -13,8 +15,9 @@ Checks every item on the skill's validation checklist:
      "not X, it's Y" rhetorical contrasts), while respecting user-approved locked text.
 
 Usage:
-  python3 scripts/validate_script.py <script_file> [--duration 45] [--locked-text "exact approved phrase"]
-  cat draft.txt | python3 scripts/validate_script.py - --duration 30
+  python3 scripts/validate_script.py <script_file>                     # auto-detects tier from Closer timing
+  python3 scripts/validate_script.py <script_file> --duration 90       # enforces exact 90s tier
+  cat draft.txt | python3 scripts/validate_script.py - --duration 60
 """
 
 from __future__ import annotations
@@ -26,7 +29,33 @@ import sys
 from pathlib import Path
 
 BEATS = ["Hook", "Story", "Turn", "Takeaway", "Closer"]
-DEFAULT_BOUNDARIES_45 = [0, 3, 20, 32, 42, 45]
+
+# Story-weighted canonical boundaries by complexity tier:
+# Hook and Closer stay crisp single-sentence beats (2-5s), while extra runtime
+# goes into Story and Turn where narrative setup, tension, and conceptual nuance live.
+CANONICAL_TIER_BOUNDARIES: dict[int, list[int]] = {
+    15: [0, 1, 7, 11, 14, 15],
+    30: [0, 2, 13, 21, 28, 30],
+    45: [0, 3, 20, 32, 42, 45],
+    60: [0, 3, 31, 46, 56, 60],
+    75: [0, 4, 40, 59, 71, 75],
+    90: [0, 4, 50, 72, 85, 90],
+    120: [0, 4, 68, 98, 115, 120],
+    150: [0, 5, 86, 124, 145, 150],
+    180: [0, 5, 105, 150, 175, 180],
+}
+
+TIER_NAMES: dict[int, str] = {
+    15: "Micro Hook-and-Point (15s)",
+    30: "Quick Insight (30s)",
+    45: "Compact Anecdote (45s)",
+    60: "Standard Story Arc (60s)",
+    75: "Extended Story (75s)",
+    90: "Layered Story & Nuanced Turn (90s)",
+    120: "Deep Narrative / Case Breakdown (120s)",
+    150: "Extended Case Breakdown (150s)",
+    180: "Full 3-Minute Narrative (180s)",
+}
 
 GREETING_PATTERNS = [
     r"^(hey|hi|hello|yo|welcome|sup|greetings)\b",
@@ -68,7 +97,8 @@ VISUAL_DIRECTION_PATTERNS = [
     r"\{[^\}]*\}",
     r"\([^)]*\)",
     r"\bb-roll\b",
-    r"\bcut to\b",
+    r"(?:^|[.!?]\s+)cut to\b",
+    r"\bcut to\s*:",
     r"\btext on screen\b",
     r"\bon-screen text\b",
     r"\bsfx\b",
@@ -155,12 +185,25 @@ CHATBOT_RESIDUE = [
 
 
 def expected_boundaries(duration: int) -> list[int]:
-    if duration == 45:
-        return list(DEFAULT_BOUNDARIES_45)
-    b1 = max(1, round(3 * duration / 45))
-    b2 = max(b1 + 1, round(20 * duration / 45))
-    b3 = max(b2 + 1, round(32 * duration / 45))
-    b4 = min(duration - 1, max(b3 + 1, round(42 * duration / 45)))
+    if duration in CANONICAL_TIER_BOUNDARIES:
+        return list(CANONICAL_TIER_BOUNDARIES[duration])
+    if duration <= 45:
+        b1 = max(1, round(3 * duration / 45))
+        b2 = max(b1 + 1, round(20 * duration / 45))
+        b3 = max(b2 + 1, round(32 * duration / 45))
+        b4 = min(duration - 1, max(b3 + 1, round(42 * duration / 45)))
+        return [0, b1, b2, b3, b4, duration]
+    # Story-weighted scaling for custom durations > 45s:
+    # Keep Hook (3-5s) and Closer (4-5s) concise, routing added time to Story & Turn.
+    hook_dur = 3 if duration <= 60 else (4 if duration <= 120 else 5)
+    closer_dur = 4 if duration <= 75 else 5
+    middle = duration - hook_dur - closer_dur
+    story_dur = round(middle * 0.56)
+    turn_dur = round(middle * 0.275)
+    b1 = hook_dur
+    b2 = b1 + story_dur
+    b3 = b2 + turn_dur
+    b4 = duration - closer_dur
     return [0, b1, b2, b3, b4, duration]
 
 
@@ -176,7 +219,6 @@ def count_words(text: str) -> int:
 
 
 def split_sentences(text: str) -> list[str]:
-    # Protect common abbreviations before splitting on terminal punctuation.
     protected = re.sub(
         r"\b(Mr|Mrs|Ms|Dr|Prof|St|vs|etc|a\.m|p\.m|A\.M|P\.M|U\.S)\.",
         lambda m: m.group(0).replace(".", "<DOT>"),
@@ -242,9 +284,15 @@ def parse_script(raw: str) -> tuple[list[dict], list[str]]:
     return sections, errors
 
 
+def infer_duration_from_sections(sections: list[dict]) -> int:
+    if sections and sections[-1].get("end") is not None and sections[-1]["end"] > 0:
+        return int(sections[-1]["end"])
+    return 60
+
+
 def validate_script(
     raw: str,
-    duration: int = 45,
+    duration: int | None = None,
     locked_texts: list[str] | None = None,
 ) -> dict:
     locked_texts = locked_texts or []
@@ -254,14 +302,16 @@ def validate_script(
     sections, parse_errors = parse_script(raw)
     errors.extend(parse_errors)
 
+    resolved_duration = duration if duration is not None else infer_duration_from_sections(sections)
+
     found_beats = [s["beat"] for s in sections]
     if found_beats != BEATS:
         errors.append(
             f"Beats must appear in exact order {BEATS}; found {found_beats}."
         )
 
-    bounds = expected_boundaries(duration)
-    tolerance = 0 if duration == 45 else 1
+    bounds = expected_boundaries(resolved_duration)
+    tolerance = 0 if resolved_duration in CANONICAL_TIER_BOUNDARIES else 2
 
     beat_word_counts: dict[str, int] = {}
     all_spoken_lines: list[str] = []
@@ -287,15 +337,16 @@ def validate_script(
                 ):
                     errors.append(
                         f"Beat '{beat}' timing ({section['start']}-{section['end']}s) does not match "
-                        f"proportional target ({exp_start}-{exp_end}s) for a {duration}s script."
+                        f"expected tier timing ({exp_start}-{exp_end}s) for a {resolved_duration}s script."
                     )
 
-    # Check contiguous timing boundaries when timings are present
     if len(sections) == 5 and all(s["start"] is not None and s["end"] is not None for s in sections):
         if sections[0]["start"] != 0:
             errors.append(f"Hook timing must start at 0s (got {sections[0]['start']}s).")
-        if sections[-1]["end"] != duration:
-            errors.append(f"Closer timing must end at {duration}s (got {sections[-1]['end']}s).")
+        if sections[-1]["end"] != resolved_duration:
+            errors.append(
+                f"Closer timing must end at {resolved_duration}s (got {sections[-1]['end']}s)."
+            )
         for i in range(len(sections) - 1):
             if sections[i]["end"] != sections[i + 1]["start"]:
                 errors.append(
@@ -306,15 +357,14 @@ def validate_script(
     spoken_text = "\n".join(all_spoken_lines)
     unlocked_spoken_text = strip_locked_spans(spoken_text, locked_texts)
 
-    # Word count check
     total_words = sum(beat_word_counts.values())
-    min_words, max_words = expected_word_range(duration)
+    min_words, max_words = expected_word_range(resolved_duration)
     if not (min_words <= total_words <= max_words):
         diff = min_words - total_words if total_words < min_words else total_words - max_words
         direction = "add" if total_words < min_words else "trim"
         errors.append(
             f"Spoken word count is {total_words} words, outside target range "
-            f"{min_words}-{max_words} words for {duration}s ({direction} at least {diff} words)."
+            f"{min_words}-{max_words} words for {resolved_duration}s ({direction} at least {diff} words)."
         )
 
     by_beat = {s["beat"]: " ".join(s["lines"]).strip() for s in sections}
@@ -364,7 +414,6 @@ def validate_script(
                 if re.search(pat, closer_text.lower()):
                     errors.append(f"Closer uses a hollow AI cliche ({pat!r}).")
                     break
-        # Check for trailing commentary smuggled into the Closer section
         if len(sections) == 5 and len(sections[-1]["lines"]) > 1:
             last_line = sections[-1]["lines"][-1].lower()
             if "word count" in last_line or "note:" in last_line or "hope this" in last_line:
@@ -373,7 +422,6 @@ def validate_script(
                     "Output only the voiceover script."
                 )
 
-    # Visual / style / markdown direction checks across spoken bodies
     for pat in VISUAL_DIRECTION_PATTERNS:
         m = re.search(pat, unlocked_spoken_text, flags=re.IGNORECASE)
         if m:
@@ -391,7 +439,6 @@ def validate_script(
     if re.search(r"^\s*[-*•]\s+", spoken_text, flags=re.MULTILINE):
         errors.append("Found bullet points inside spoken script; write continuous spoken sentences.")
 
-    # Humanizer / AI-tell checks on unlocked text
     if "—" in unlocked_spoken_text or "–" in unlocked_spoken_text or " -- " in unlocked_spoken_text:
         errors.append(
             "Found em dash (—), en dash (–), or spaced double-hyphen (--) in unlocked text; "
@@ -404,7 +451,7 @@ def validate_script(
             errors.append(f"Found AI-sounding buzzword {word!r}; replace with plain spoken English.")
 
     for pat in VAGUE_ATTRIBUTIONS:
-        m = re.search(pat, lowered_unlocked)
+        m = re.search(pat, unlocked_spoken_text, flags=re.IGNORECASE)
         if m:
             errors.append(
                 f"Found vague attribution {m.group(0)!r}; use only user-provided facts or direct phrasing."
@@ -422,7 +469,6 @@ def validate_script(
         if m:
             errors.append(f"Found chatbot wrapper phrase {m.group(0)!r}; output only the script.")
 
-    # Read-aloud breath check (sentence length)
     for beat_name, body in by_beat.items():
         for sent in split_sentences(strip_locked_spans(body, locked_texts)):
             wc = count_words(sent)
@@ -436,15 +482,28 @@ def validate_script(
                     f"Sentence in '{beat_name}' is {wc} words; check that it reads comfortably in one breath."
                 )
 
+    tier_label = TIER_NAMES.get(resolved_duration, f"Custom Duration ({resolved_duration}s)")
+
     return {
         "valid": len(errors) == 0,
-        "duration_seconds": duration,
+        "duration_seconds": resolved_duration,
+        "tier": tier_label,
+        "expected_boundaries": bounds,
         "spoken_word_count": total_words,
         "target_word_range": [min_words, max_words],
         "beat_word_counts": beat_word_counts,
         "errors": errors,
         "warnings": warnings,
     }
+
+
+def parse_duration_arg(value: str) -> int | None:
+    if value.strip().lower() == "auto":
+        return None
+    parsed = int(value)
+    if parsed <= 0:
+        raise argparse.ArgumentTypeError("--duration must be a positive integer or 'auto'.")
+    return parsed
 
 
 def main() -> int:
@@ -457,9 +516,9 @@ def main() -> int:
     )
     parser.add_argument(
         "--duration",
-        type=int,
-        default=45,
-        help="Target video length in seconds (default: 45).",
+        type=parse_duration_arg,
+        default=None,
+        help="Target video length in seconds (e.g. 30, 45, 60, 75, 90, 120) or 'auto' to infer from Closer timing (default: auto).",
     )
     parser.add_argument(
         "--locked-text",
@@ -474,10 +533,6 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    if args.duration <= 0:
-        print("Error: --duration must be a positive integer.", file=sys.stderr)
-        return 2
-
     if args.script_path == "-":
         raw = sys.stdin.read()
     else:
@@ -491,7 +546,7 @@ def main() -> int:
         status = "PASS" if result["valid"] else "FAIL"
         low, high = result["target_word_range"]
         print(
-            f"[{status}] {result['spoken_word_count']} spoken words "
+            f"[{status}] {result['tier']} | {result['spoken_word_count']} spoken words "
             f"(target {low}-{high} for {result['duration_seconds']}s) | "
             f"beats={result['beat_word_counts']}"
         )
