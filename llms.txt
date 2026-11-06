@@ -1,0 +1,24 @@
+# Short-Form Script Writer Pro
+
+> Agent-agnostic workflow for writing natural, spoken-English voiceover scripts for short-form vertical videos (Instagram Reels, TikTok, YouTube Shorts). Sizes script duration (`30s` to `120s+`) to story and concept complexity, integrates optional 30-day discourse research strictly to sharpen hooks/angles, strips AI writing tells, and enforces a 7-point pre-output validation checklist.
+
+## Entry Points
+
+- [Universal Agent Instructions](AGENTS.md): Standard instructions read natively by Codex, Cursor, GitHub Copilot, Gemini CLI, Kimi CLI, Windsurf, OpenCode, Amp, Cline, and Devin.
+- [Skill Definition](SKILL.md): Skill entry point (Claude Skills, Gemini Skills, Codex) with full workflow, complexity tiers, rules, checklist, and worked 60-second example.
+- [Full Single-File Corpus](llms-full.txt): Concatenated single-file edition to attach directly in Kimi, ChatGPT, Gemini, Claude Projects, DeepSeek, Grok, Perplexity, or RAG pipelines.
+
+## Reference & Tooling
+
+- [Combined Skills Fallback & Duration Tiers](references/combined-skills-fallback.md): Host-agnostic research and humanizer playbooks plus full `15s`–`180s` complexity-tier schedules and beat budgets.
+- [Deterministic Script Validator](scripts/validate_script.py): Zero-dependency Python 3 validator checking beat headers, story-weighted timings, spoken word counts, and AI writing tells.
+
+## Portable Prompts (No File Access Needed)
+
+- [Portable Guide](portable/README.md): Which prompt to paste into Gemini, ChatGPT, Kimi, Claude, Grok, Perplexity, DeepSeek, Qwen, Cursor, Copilot, or APIs.
+- [System Prompt](portable/system-prompt.md): Full standalone system prompt (< 7,900 chars) for Custom GPTs, ChatGPT/Claude Projects, and LLM APIs.
+- [Gemini Gem Instructions](portable/gemini-gem-instructions.md): Tuned for Gemini Gems (< 3,900 chars) with Google Search grounding.
+- [Kimi / Kimi+ Instructions](portable/kimi-instructions.md): Tuned for Kimi+ custom assistants (< 3,900 chars) with `联网搜索` Web Search.
+- [ChatGPT Custom Instructions](portable/chatgpt-instructions.md): Tuned for ChatGPT Paid Custom Instructions (< 4,900 chars), Cursor rules, and Copilot instructions.
+- [Mini Prompt](portable/mini-prompt.md): Compact edition (< 1,450 chars) for ChatGPT Free Custom Instructions and small persona fields.
+- [Kickoff Prompt](portable/kickoff-prompt.md): Zero-setup first message to paste into any plain web or mobile chat.

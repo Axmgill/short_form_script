@@ -2,42 +2,34 @@
 
 Built, tested, and refined using the `skill-creator` workflow (`draft -> test -> grade -> refine -> re-test -> package`).
 
-## Test Suite (`evals/evals.json`)
+## Current Test Suite (`evals/evals.json` — Iteration 3 Complexity Tiers)
 
-| ID | Name | Research? | Target Length | Key Rules Stress-Tested |
+| ID | Name | Research? | Duration Tier | Key Rules Stress-Tested |
 |---|---|---|---|---|
-| 1 | `no-research-45s-meeting-index-card` | No | 45s (default) | Skips research, 100–120 spoken words, no invented team sizes/metrics, humanizer pass |
-| 2 | `with-research-45s-junior-dev-ai-coding` | Yes | 45s (default) | `last30days` fallback research, sharpens Hook/angle only, zero unapproved research stats leaked |
-| 3 | `scaled-30s-locked-hook-coffee` | No | 30s (scaled) | Proportional timing (`0-2s`, `2-13s`, `13-21s`, `21-28s`, `28-30s`), 67–80 spoken words, verbatim preservation of 17-word user-approved Hook, zero unprompted brewing temperature trivia |
+| 1 | `auto-60s-standard-story-meeting-index-card` | No | **60s** *(auto-selected)* | Moderate multi-beat story -> 60s Standard Story Arc (`0-3s / 3-31s / 31-46s / 46-56s / 56-60s`, `133–160w`), skips research, zero invented metrics |
+| 2 | `auto-90s-with-research-layered-junior-dev-ai` | Yes | **90s** *(auto-selected)* | High narrative + conceptual nuance -> 90s Layered Story (`0-4s / 4-50s / 50-72s / 72-85s / 85-90s`, `200–240w`), `last30days` fallback research sharpens Hook/angle only, zero unapproved stats |
+| 3 | `explicit-30s-quick-insight-locked-hook-coffee` | No | **30s** *(explicit)* | 30s Quick Insight (`0-2s / 2-13s / 13-21s / 21-28s / 28-30s`, `67–80w`), verbatim preservation of 17-word user-approved Hook, zero unprompted brewing trivia |
+| 4 | `auto-120s-deep-narrative-agency-pricing` | No | **120s** *(auto-selected)* | Very high multi-scene narrative + economic reframe -> 120s Deep Narrative (`0-4s / 4-68s / 68-98s / 98-115s / 115-120s`, `267–320w`), zero invented dollar figures |
 
 ---
 
-## Iteration 1 Findings (`evals/iteration-1/`)
+## Iteration History
 
-- **Eval 1 (5/7 expectations passed, 71%):**
-  - Spoken word count landed at 115 words (`100-120`), all 5 beats present.
-  - **Failures caught:** Hook used `"quietly"` (an AI watch word in `humanizer` §12 not yet flagged by `validate_script.py`), and Story embellished `"multitasking on Slack"` into `"answering Slack under the table"`.
-- **Eval 2 (6/7 expectations passed, 86%):**
-  - Live recent-discussion search surfaced recurring developer frustrations (shipping fast with AI then freezing when debugging your own merged code because skipping the struggle skipped building a mental model). External statistics (`59%`, `20%` Stanford figure, Anthropic white paper, tool names) were properly excluded.
-  - **Failure caught:** Hook introduced unprompted rhetorical durations (`"in ten minutes"`, `"all afternoon"`) and Story added minor unprompted scene blocking (`"When we opened the file together"`).
-- **Eval 3 (6/7 expectations passed, 86%):**
-  - 30s proportional beat labels (`0-2s`, `2-13s`, `13-21s`, `21-28s`, `28-30s`) and locked 17-word Hook were intact.
-  - **Failure caught:** Spoken word count reached **92 words** (`[FAIL]` against 30s target of `67-80` words) because drafting did not subtract the 17-word locked Hook from the 74-word midpoint budget before allocating words to the remaining four beats.
+### Iteration 1 (`evals/iteration-1/` — Initial 45s Baseline)
+- Caught `"quietly"` (`humanizer` §12 watch word) and minor scene embellishment in Eval 1.
+- Caught unprompted rhetorical durations in Eval 2's Hook (`"in ten minutes"`, `"all afternoon"`).
+- Caught a word-count overshoot on the 30s script in Eval 3 (92 words vs. 67–80 target) when a 17-word locked Hook wasn't subtracted from the budget upfront.
 
----
+### Iteration 2 (`evals/iteration-2/` — Refined 45s & 30s Validation)
+- Added pre-draft word budgeting, expanded `humanizer` watch words in `SKILL.md` and `scripts/validate_script.py`, and tightened Accuracy Rules.
+- All 45s (`107w`, `112w`) and 30s (`70w`) test cases passed **7/7 expectations (100%)**.
 
-## Refinements Applied Before Iteration 2
-
-1. **Pre-draft word budgeting (`SKILL.md` Step 3):** Added explicit instructions to compute the midpoint budget `round(110 * T / 45)` first, subtract any user-locked beat words upfront, and distribute only the remaining word budget across unlocked beats.
-2. **Expanded `humanizer` watch-word enforcement (`SKILL.md` Step 4 & `scripts/validate_script.py`):** Added `quietly`, `additionally`, `enduring`, `enhance`, `robust`, `valuable`, `elevate`, and `deep dive` from `humanizer` §12 so `validate_script.py` flags them automatically.
-3. **Sharpened Accuracy Rules (`SKILL.md`):** Explained why rhetorical clock times, technical trivia numbers, and micro-scene blocking count as invented details and break creator trust.
-
----
-
-## Iteration 2 Results (`evals/iteration-2/`)
-
-All 3 test cases passed **7/7 expectations (100%)** and passed `scripts/validate_script.py` with zero errors or warnings:
-
-- **Eval 1 (`no-research-45s-meeting-index-card`):** `PASS` — **107 spoken words** (`target 100-120`), `{'Hook': 12, 'Story': 43, 'Turn': 26, 'Takeaway': 17, 'Closer': 9}`.
-- **Eval 2 (`with-research-45s-junior-dev-ai-coding`):** `PASS` — **112 spoken words** (`target 100-120`), `{'Hook': 17, 'Story': 38, 'Turn': 28, 'Takeaway': 19, 'Closer': 10}`.
-- **Eval 3 (`scaled-30s-locked-hook-coffee`):** `PASS` — **70 spoken words** (`target 67-80`), `{'Hook': 17, 'Story': 22, 'Turn': 11, 'Takeaway': 12, 'Closer': 8}`.
+### Iteration 3 (`evals/iteration-3/` — Complexity-Based Duration Options)
+- Replaced the one-size-fits-all 45s default with **story-weighted Complexity-Based Duration Options** (`30s`, `45s`, `60s` narrative default, `75s`, `90s`, `120s`, plus custom schedules up to `180s`) so `Hook` (`2–4s`) and `Closer` (`2–5s`) stay crisp single sentences while added runtime goes into `Story` and `Turn`.
+- Fixed a false-positive regex in `scripts/validate_script.py` where ordinary spoken phrases like `"delivered a launch cut to a repeat client"` triggered the `"cut to"` stage-direction check; scoped `"cut to"` detection to sentence/line openings and `"cut to:"` labels.
+- Added `--duration auto` inference from `Closer` timing to `scripts/validate_script.py`.
+- All 4 complexity-tier evaluations passed **7/7 expectations (100%)** with zero validator errors or warnings:
+  - **Eval 1 (`60s` Standard Story Arc):** `PASS` — **135 spoken words** (`target 133–160`), `{'Hook': 12, 'Story': 67, 'Turn': 28, 'Takeaway': 19, 'Closer': 9}`
+  - **Eval 2 (`90s` Layered Story, with research):** `PASS` — **214 spoken words** (`target 200–240`), `{'Hook': 17, 'Story': 110, 'Turn': 47, 'Takeaway': 27, 'Closer': 13}`
+  - **Eval 3 (`30s` Quick Insight, locked Hook):** `PASS` — **70 spoken words** (`target 67–80`), `{'Hook': 17, 'Story': 22, 'Turn': 11, 'Takeaway': 12, 'Closer': 8}`
+  - **Eval 4 (`120s` Deep Narrative):** `PASS` — **292 spoken words** (`target 267–320`), `{'Hook': 14, 'Story': 174, 'Turn': 65, 'Takeaway': 26, 'Closer': 13}`

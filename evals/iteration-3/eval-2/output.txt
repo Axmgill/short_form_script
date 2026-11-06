@@ -1,0 +1,14 @@
+Hook (0-4s):
+Shipping features fast feels great until your own code breaks and looks like a stranger wrote it.
+
+Story (4-50s):
+I mentored a bright junior developer who started shipping features fast as soon as they turned on AI autocomplete. At first, our whole team celebrated their velocity. Features kept moving into production with barely any delay. Then a production bug hit a 40-line function they had pushed that morning. When they tried to debug it, they pasted the error back into AI three times. Each pass made the bug worse instead of fixing the root cause. Finally, they stopped and admitted they couldn't explain what half of their own function did. The code was live in production, yet its author had no mental map of how those lines worked together.
+
+Turn (50-72s):
+Shipping fast means nothing when you skip building the mental model required to debug what you put into production. Typing out hard logic by hand feels slower in the moment. Still, working through that friction is how you learn where edge cases hide when autocomplete guesses wrong.
+
+Takeaway (72-85s):
+Next time you take on a tricky feature, write the core logic yourself from scratch first. Only bring in AI afterward to clean up your working draft.
+
+Closer (85-90s):
+If you can't explain the code you ship, you don't own it yet.
