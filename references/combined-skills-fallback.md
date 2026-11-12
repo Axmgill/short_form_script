@@ -11,8 +11,8 @@ This reference details how `short-form-script-writer-pro` invokes its combined s
 - **Gate:** Run **only** when the user asks for current, recent, or trending context (for example: *"see what people are currently saying"*, *"use current trends"*, *"research recent Reddit/X/TikTok chatter first"*). Skip completely otherwise.
 - **Procedure:** Read `/mnt/skills/plugins/last30days/SKILL.md` in full and follow its topic-research workflow to gather what people have been saying over the past 30 days.
 
-### Host-native / manual fallback (Gemini, ChatGPT, Kimi, Perplexity, Grok, or when `/mnt/skills/plugins/last30days/SKILL.md` is unavailable)
-1. **Use the host's built-in web search:** Run 1–3 focused queries scoped to recent discussions from the last 30 days using whichever search capability the app provides (Google Search in **Gemini**, Web Search in **ChatGPT**, `联网搜索` in **Kimi**, Perplexity/Grok search, or agent `WebSearch` / `web_search` tools):
+### Host-native / manual fallback (Gemini, Google Antigravity, ChatGPT, Kimi, Perplexity, Grok, or when `/mnt/skills/plugins/last30days/SKILL.md` is unavailable)
+1. **Use the host's built-in web search:** Run 1–3 focused queries scoped to recent discussions from the last 30 days using whichever search capability the app provides (Google Search in **Gemini** or **Antigravity** when available, Web Search in **ChatGPT**, `联网搜索` in **Kimi**, Perplexity/Grok search, or agent `WebSearch` / `web_search` tools):
    - Common complaints, pushback, or frustrations people voice about the topic
    - Everyday phrases, comparisons, or tension points recurring in threads and comments
    - Contrarian angles versus tired conventional advice
