@@ -1,6 +1,6 @@
 # short-form-script-writer-pro — Agent-Agnostic Short-Form Voiceover Skill
 
-A model- and platform-agnostic skill that writes natural, spoken-English voiceover scripts for **Instagram Reels**, **TikTok**, and **YouTube Shorts**—packaged so **every app and agent** can run it (**Google Gemini**, **ChatGPT**, **Kimi**, **Claude**, **DeepSeek**, **Grok**, **Perplexity**, **Qwen**, **Codex**, **Cursor**, **GitHub Copilot**, **Windsurf**, and any API).
+A model- and platform-agnostic skill that writes natural, spoken-English voiceover scripts for **Instagram Reels**, **TikTok**, and **YouTube Shorts**—packaged so **every app and agent** can run it (**Google Gemini**, **Google Antigravity**, **ChatGPT**, **Kimi**, **Claude**, **DeepSeek**, **Grok**, **Perplexity**, **Qwen**, **Codex**, **Cursor**, **GitHub Copilot**, **Windsurf**, and any API).
 
 ---
 
@@ -11,11 +11,11 @@ The entire workflow—complexity-based duration sizing (`30s` to `120s+`), optio
 | Layer | File(s) | Read / Used By |
 |---|---|---|
 | **Universal Agent Standard** | [`AGENTS.md`](AGENTS.md) | Codex, Cursor, GitHub Copilot, Gemini CLI, Kimi CLI, Windsurf, OpenCode, Amp, Cline, Devin |
-| **Native Skill Package** | [`SKILL.md`](SKILL.md), [`bundles/short-form-script-writer-pro.zip`](bundles/short-form-script-writer-pro.zip), [`short-form-script-writer-pro.skill`](short-form-script-writer-pro.skill) | **Gemini Skills** (unzip & upload folder), **Claude.ai / Cowork** (`.skill`), **Claude Code**, **Codex** |
+| **Native Skill Package** | [`.agents/skills/short-form-script-writer-pro/`](.agents/skills/short-form-script-writer-pro/), [`bundles/antigravity/short-form-script-writer-pro.zip`](bundles/antigravity/short-form-script-writer-pro.zip), [`SKILL.md`](SKILL.md), [`bundles/short-form-script-writer-pro.zip`](bundles/short-form-script-writer-pro.zip), [`short-form-script-writer-pro.skill`](short-form-script-writer-pro.skill) | **Google Antigravity** (App / IDE / CLI), **Gemini Skills**, **Claude.ai / Cowork** (`.skill`), **Claude Code**, **Codex** |
 | **Portable Paste Prompts** | [`portable/`](portable/README.md) | **Gemini Gems**, **ChatGPT** (Custom GPTs, Projects, Paid & Free Custom Instructions), **Kimi / Kimi+**, **Grok**, **DeepSeek**, **Perplexity**, **Qwen**, **APIs** |
 | **Single-File Corpus** | [`llms-full.txt`](llms-full.txt), [`llms.txt`](llms.txt) | Drag-and-drop into **Kimi**, **ChatGPT**, **Gemini**, **Claude Projects**, or any RAG knowledge store |
 
-`tools/build.sh` regenerates every bundle from source, and `tools/check.sh` verifies character limits, file links, Gemini upload rules, and rule parity across all surfaces.
+`tools/build.sh` regenerates every bundle from source, including a ready-to-use Antigravity workspace skill and global-install archive. `tools/check.sh` verifies character limits, file links, bundle contents, skill sync, and rule parity across all surfaces.
 
 ---
 
@@ -25,6 +25,22 @@ The entire workflow—complexity-based duration sizing (`30s` to `120s+`), optio
 - **Gemini Skills (recommended):** Download [`bundles/short-form-script-writer-pro.zip`](bundles/short-form-script-writer-pro.zip), **unzip it**, then go to `gemini.google.com` → **Customize** → **Skills** → **Create** → **Upload** → select the unzipped `short-form-script-writer-pro` folder.
 - **Gemini Gems:** Paste [`portable/gemini-gem-instructions.md`](portable/gemini-gem-instructions.md) into *Gem Instructions* (and optionally upload [`llms-full.txt`](llms-full.txt) to *Knowledge*).
 - **Plain Gemini Chat:** Paste [`portable/kickoff-prompt.md`](portable/kickoff-prompt.md) as your first message.
+
+### Google Antigravity (App, IDE, or CLI)
+- **Workspace install (this repository):** The skill is already packaged in [`.agents/skills/short-form-script-writer-pro/`](.agents/skills/short-form-script-writer-pro/). Open the repository root as your Antigravity workspace; the skill is discovered automatically.
+- **Install from the bundle** into any workspace or globally (the archive contains the skill folder at its root):
+  ```bash
+  # In a workspace root, for this project only:
+  mkdir -p .agents/skills
+  unzip -o bundles/antigravity/short-form-script-writer-pro.zip -d .agents/skills
+
+  # Or, for all Antigravity workspaces:
+  mkdir -p ~/.gemini/config/skills
+  unzip -o bundles/antigravity/short-form-script-writer-pro.zip -d ~/.gemini/config/skills
+  ```
+  The global command creates `~/.gemini/config/skills/short-form-script-writer-pro/SKILL.md`, the official shared location for Antigravity App, IDE, and CLI.
+- **Invoke:** Antigravity selects the skill automatically for script-writing requests. Where slash commands are supported, use `/short-form-script-writer-pro`. In the CLI, run `/skills reload` after installing into an active session. Check **Customizations** in the IDE/App if it is not listed.
+- This package adapts the current script-writing skill, not the linked [Ghost Editor](https://github.com/kurbaitaev/ghost-editor) project; it writes voiceover scripts and does not install or run video editors. Ghost Editor has its own macOS/toolchain and Claude Code-oriented setup. See [Google's Antigravity skill docs](https://antigravity.google/docs/skills) for current discovery details.
 
 ### ChatGPT (`chatgpt.com`)
 - **Custom GPT / Projects:** Paste [`portable/system-prompt.md`](portable/system-prompt.md) into *Instructions*, upload [`llms-full.txt`](llms-full.txt) to *Knowledge / Project Files*, and keep *Web Search* enabled.
@@ -74,8 +90,12 @@ Instead of forcing every story into 45 seconds, the workflow selects the matchin
 
 ```text
 .
+├── .agents/skills/short-form-script-writer-pro/ # Google Antigravity workspace skill (generated)
+│   ├── SKILL.md                            # Native skill entry point
+│   ├── references/                          # Bundled fallback playbooks
+│   └── scripts/                              # Bundled deterministic validator
 ├── AGENTS.md                                # Universal agent instructions (AGENTS.md standard)
-├── SKILL.md                                 # Native skill entry point + worked 60s example
+├── SKILL.md                                 # Source skill + worked 60s example
 ├── llms.txt / llms-full.txt                 # Machine-readable map & full single-file corpus
 ├── portable/                                # Paste-ready prompts for Gemini, ChatGPT, Kimi, etc.
 │   ├── README.md
@@ -86,6 +106,7 @@ Instead of forcing every story into 45 seconds, the workflow selects the matchin
 │   ├── mini-prompt.md                       # ChatGPT Free & small persona boxes (<1,450 chars)
 │   └── kickoff-prompt.md                    # Zero-setup first message for any chat
 ├── bundles/
+│   ├── antigravity/short-form-script-writer-pro.zip # Antigravity global/workspace skill package
 │   └── short-form-script-writer-pro.zip     # Plain-text Gemini Skill / folder upload bundle
 ├── short-form-script-writer-pro.skill       # Claude.ai / Cowork .skill archive
 ├── references/
@@ -93,12 +114,12 @@ Instead of forcing every story into 45 seconds, the workflow selects the matchin
 ├── scripts/
 │   └── validate_script.py                   # Optional zero-dependency Python CLI validator
 ├── tools/
-│   ├── build.sh                             # Rebuilds llms-full.txt, .zip bundle, and .skill
+│   ├── build.sh                             # Rebuilds corpus, bundles, and .skill archive
 │   └── check.sh                             # Verifies budgets, links, sync, & validator checks
 └── evals/                                   # Multi-tier test & refinement suite (30s–120s)
 ```
 
 ```bash
-bash tools/build.sh   # regenerate llms-full.txt, bundles/*.zip, and *.skill
-bash tools/check.sh   # verify all cross-agent budgets, bundles, and evals
+bash tools/build.sh   # regenerate llms-full.txt, all skill bundles, and *.skill
+bash tools/check.sh   # verify cross-agent budgets, bundles, Antigravity sync, and evals
 ```

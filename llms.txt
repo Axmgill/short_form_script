@@ -1,11 +1,13 @@
 # Short-Form Script Writer Pro
 
-> Agent-agnostic workflow for writing natural, spoken-English voiceover scripts for short-form vertical videos (Instagram Reels, TikTok, YouTube Shorts). Sizes script duration (`30s` to `120s+`) to story and concept complexity, integrates optional 30-day discourse research strictly to sharpen hooks/angles, strips AI writing tells, and enforces a 7-point pre-output validation checklist.
+> Agent-agnostic workflow for writing natural, spoken-English voiceover scripts for short-form vertical videos (Instagram Reels, TikTok, YouTube Shorts). Sizes script duration (`30s` to `120s+`) to story and concept complexity, integrates optional 30-day discourse research strictly to sharpen hooks/angles, strips AI writing tells, and enforces a 7-point pre-output validation checklist. Includes a native Google Antigravity workspace skill for the App, IDE, and CLI.
 
 ## Entry Points
 
 - [Universal Agent Instructions](AGENTS.md): Standard instructions read natively by Codex, Cursor, GitHub Copilot, Gemini CLI, Kimi CLI, Windsurf, OpenCode, Amp, Cline, and Devin.
-- [Skill Definition](SKILL.md): Skill entry point (Claude Skills, Gemini Skills, Codex) with full workflow, complexity tiers, rules, checklist, and worked 60-second example.
+- [Skill Definition](SKILL.md): Skill entry point with full workflow, complexity tiers, rules, checklist, and worked 60-second example.
+- [Antigravity Workspace Skill](.agents/skills/short-form-script-writer-pro/SKILL.md): Native Google Antigravity App / IDE / CLI skill, automatically discovered in this workspace.
+- [Antigravity Install Bundle](bundles/antigravity/short-form-script-writer-pro.zip): Standalone skill package for workspace or global Antigravity installation.
 - [Full Single-File Corpus](llms-full.txt): Concatenated single-file edition to attach directly in Kimi, ChatGPT, Gemini, Claude Projects, DeepSeek, Grok, Perplexity, or RAG pipelines.
 
 ## Reference & Tooling

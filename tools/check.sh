@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Verify cross-agent parity, host character limits, file references, and bundle health.
+# Verify cross-agent parity, host character limits, file references, and Antigravity bundle health.
 #
 #   tools/check.sh
 set -uo pipefail
@@ -110,37 +110,67 @@ for p in portable/system-prompt.md portable/gemini-gem-instructions.md portable/
 done
 
 echo
-echo "5. Corpus & bundle freshness + Gemini upload legality"
-if [ ! -f llms-full.txt ] || [ ! -f bundles/short-form-script-writer-pro.zip ] || [ ! -f short-form-script-writer-pro.skill ]; then
+echo "5. Corpus freshness, Antigravity package sync, and Gemini upload legality"
+ANTIGRAVITY_DIR=".agents/skills/short-form-script-writer-pro"
+ANTIGRAVITY_ZIP="bundles/antigravity/short-form-script-writer-pro.zip"
+if [ ! -f llms-full.txt ] || [ ! -f bundles/short-form-script-writer-pro.zip ] \
+   || [ ! -f "$ANTIGRAVITY_ZIP" ] || [ ! -f "$ANTIGRAVITY_DIR/SKILL.md" ] \
+   || [ ! -f "$ANTIGRAVITY_DIR/references/combined-skills-fallback.md" ] \
+   || [ ! -f "$ANTIGRAVITY_DIR/scripts/validate_script.py" ] \
+   || [ ! -f short-form-script-writer-pro.skill ]; then
   fail "one or more generated artifacts missing (run tools/build.sh)"
 else
   snap_dir=$(mktemp -d)
   cp llms-full.txt "$snap_dir/llms-full.txt"
-  cp bundles/short-form-script-writer-pro.zip "$snap_dir/bundle.zip"
+  cp bundles/short-form-script-writer-pro.zip "$snap_dir/gemini.zip"
+  cp "$ANTIGRAVITY_ZIP" "$snap_dir/antigravity.zip"
   cp short-form-script-writer-pro.skill "$snap_dir/bundle.skill"
+  cp -a "$ANTIGRAVITY_DIR" "$snap_dir/antigravity-skill"
   bash tools/build.sh >/dev/null
   if cmp -s llms-full.txt "$snap_dir/llms-full.txt" \
-     && cmp -s bundles/short-form-script-writer-pro.zip "$snap_dir/bundle.zip" \
-     && cmp -s short-form-script-writer-pro.skill "$snap_dir/bundle.skill"; then
-    ok "llms-full.txt, bundles/short-form-script-writer-pro.zip, and .skill are up to date"
+     && cmp -s bundles/short-form-script-writer-pro.zip "$snap_dir/gemini.zip" \
+     && cmp -s "$ANTIGRAVITY_ZIP" "$snap_dir/antigravity.zip" \
+     && cmp -s short-form-script-writer-pro.skill "$snap_dir/bundle.skill" \
+     && diff -qr "$ANTIGRAVITY_DIR" "$snap_dir/antigravity-skill" >/dev/null; then
+    ok "corpus, Antigravity workspace skill/archive, Gemini bundle, and .skill are up to date"
   else
     fail "generated artifacts were out of sync with sources (rebuilt now; commit updated files)"
   fi
   rm -rf "$snap_dir"
 
-  bad_zip=$(python3 - <<'PY'
+  bad_zip=$(python3 - <<'PY2'
 import zipfile
 with zipfile.ZipFile("bundles/short-form-script-writer-pro.zip") as zf:
     names = zf.namelist()
     assert "short-form-script-writer-pro/SKILL.md" in names, "Missing root SKILL.md in zip"
     bad = [n for n in names if not n.endswith((".md", ".txt"))]
     print(",".join(bad))
-PY
+PY2
   )
   if [ -z "$bad_zip" ]; then
     ok "bundles/short-form-script-writer-pro.zip is Gemini-upload legal (root SKILL.md + plain text only)"
   else
     fail "bundles/short-form-script-writer-pro.zip contains non-plain-text entries: $bad_zip"
+  fi
+
+  antigravity_zip_check=$(python3 - <<'PY2'
+import zipfile
+expected = {
+    "short-form-script-writer-pro/SKILL.md",
+    "short-form-script-writer-pro/references/combined-skills-fallback.md",
+    "short-form-script-writer-pro/scripts/validate_script.py",
+}
+with zipfile.ZipFile("bundles/antigravity/short-form-script-writer-pro.zip") as zf:
+    actual = {name for name in zf.namelist() if not name.endswith("/")}
+    if actual != expected:
+        raise SystemExit(f"unexpected Antigravity archive entries: {sorted(actual)}")
+print("ok")
+PY2
+  )
+  if [ "$antigravity_zip_check" = "ok" ] && cmp -s SKILL.md "$ANTIGRAVITY_DIR/SKILL.md"; then
+    ok "Antigravity bundle has the skill manifest, fallback reference, and validator at standard skill paths"
+  else
+    fail "Antigravity bundle contents or workspace SKILL.md are invalid"
   fi
 fi
 

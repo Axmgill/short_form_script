@@ -1,6 +1,6 @@
 # Portable Mode — Use `short-form-script-writer-pro` in Every App
 
-`SKILL.md` and `AGENTS.md` work automatically in agents that read local folders (Claude Code, Codex, Cursor, Gemini CLI, Kimi CLI, GitHub Copilot, Windsurf, OpenCode). **Portable mode exists for every app that does not**—**Gemini** on the web/mobile, **ChatGPT**, **Kimi** (`kimi.ai` / `kimi.moonshot.cn`), **Claude Projects**, **DeepSeek**, **Grok**, **Perplexity**, **Qwen**, or any LLM API.
+`SKILL.md` and `AGENTS.md` work automatically in agents that read local folders (Google Antigravity, Claude Code, Codex, Cursor, Gemini CLI, Kimi CLI, GitHub Copilot, Windsurf, OpenCode). **Portable mode exists for every app that does not**—**Gemini** on the web/mobile, **ChatGPT**, **Kimi** (`kimi.ai` / `kimi.moonshot.cn`), **Claude Projects**, **DeepSeek**, **Grok**, **Perplexity**, **Qwen**, or any LLM API.
 
 Every portable file carries the **exact same self-contained workflow**—complexity-based duration options (`30s` to `120s+`), optional 30-day research via the host's built-in web search, AI-tell humanization, and the 7-point pre-output check—with **zero repository or Python dependency**.
 
@@ -10,6 +10,7 @@ Every portable file carries the **exact same self-contained workflow**—complex
 
 | App / Surface | File to Use | Field Limit |
 |---|---|---|
+| **Google Antigravity (App / IDE / CLI)** | Workspace: [`.agents/skills/short-form-script-writer-pro/`](../.agents/skills/short-form-script-writer-pro/); global: [`../bundles/antigravity/short-form-script-writer-pro.zip`](../bundles/antigravity/short-form-script-writer-pro.zip) | Native `SKILL.md` |
 | **Gemini Skills (web)** | Unzip [`../bundles/short-form-script-writer-pro.zip`](../bundles/short-form-script-writer-pro.zip) → upload folder | 100 MB / 1,024-char desc |
 | **Gemini Gems (web)** | [`gemini-gem-instructions.md`](gemini-gem-instructions.md) | ~4,000 chars |
 | **ChatGPT — Custom GPT / Projects** | [`system-prompt.md`](system-prompt.md) *(+ `../llms-full.txt` as Knowledge)* | 8,000 chars |
@@ -27,6 +28,12 @@ Each file in `portable/` contains **one fenced code block**. Copy **only the tex
 ---
 
 ## Quick Setup by App
+
+### Google Antigravity (App / IDE / CLI)
+- **Workspace:** This repository already includes `.agents/skills/short-form-script-writer-pro/`; open the repository root and Antigravity will discover the skill.
+- **Install from the bundle:** Extract [`../bundles/antigravity/short-form-script-writer-pro.zip`](../bundles/antigravity/short-form-script-writer-pro.zip) into `<workspace>/.agents/skills/` for one project or `~/.gemini/config/skills/` for all projects.
+- **Use it:** Antigravity selects it automatically for a matching script-writing task. Use `/short-form-script-writer-pro` where slash commands are supported. In the CLI, run `/skills reload` after adding it to an active session; in the App/IDE, check **Customizations** or start a new conversation.
+- See [Google's Antigravity skill documentation](https://antigravity.google/docs/skills) for current locations and discovery behavior.
 
 ### 1. Google Gemini (`gemini.google.com`)
 - **Recommended — Gemini Skills:**

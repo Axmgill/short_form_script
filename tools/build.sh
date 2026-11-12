@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Deterministically rebuild all cross-agent artifacts from source files:
-#   1. llms-full.txt                              (single-file corpus for Kimi, ChatGPT, Gemini, Claude, RAG)
-#   2. bundles/short-form-script-writer-pro.zip   (plain-text Gemini Skill / universal folder bundle)
-#   3. short-form-script-writer-pro.skill         (Claude.ai / Cowork .skill archive)
+#   1. llms-full.txt                                      (single-file corpus for chat / RAG hosts)
+#   2. bundles/short-form-script-writer-pro.zip           (plain-text Gemini Skill / universal folder bundle)
+#   3. .agents/skills/<name> + bundles/antigravity/*.zip (Google Antigravity workspace/global skill)
+#   4. short-form-script-writer-pro.skill                 (Claude.ai / Cowork .skill archive)
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -41,8 +42,8 @@ trap 'rm -f "$TMP_CORPUS"; rm -rf "$STAGE"' EXIT
   cat <<'HEADER'
 # Short-Form Script Writer Pro — Full Single-File Corpus (`llms-full.txt`)
 
-> Drop this single file into Kimi, ChatGPT, Google Gemini, Claude Projects,
-> DeepSeek, Grok, Perplexity, Qwen, or any RAG / API knowledge base to enable
+> Drop this single file into Kimi, ChatGPT, Google Gemini, Google Antigravity,
+> Claude Projects, DeepSeek, Grok, Perplexity, Qwen, or any RAG / API knowledge base to enable
 > the complete Short-Form Script Writer Pro workflow with zero repository setup.
 >
 > Core house rules across all surfaces:
@@ -123,7 +124,31 @@ printf 'build: wrote bundles/%s.zip (%s bytes)\n' \
   "$SKILL_NAME" "$(wc -c < "bundles/$SKILL_NAME.zip" | tr -d ' ')"
 
 # ---------------------------------------------------------------------------
-# 3. Rebuild short-form-script-writer-pro.skill (Claude.ai / Cowork .skill archive)
+# 3. Rebuild the Google Antigravity workspace skill and portable archive.
+#    The workspace copy is auto-discovered from .agents/skills/<name>/.
+# ---------------------------------------------------------------------------
+ANTIGRAVITY_STAGE="$STAGE/antigravity/$SKILL_NAME"
+mkdir -p "$ANTIGRAVITY_STAGE/references" "$ANTIGRAVITY_STAGE/scripts"
+cp SKILL.md "$ANTIGRAVITY_STAGE/SKILL.md"
+cp references/combined-skills-fallback.md "$ANTIGRAVITY_STAGE/references/"
+cp scripts/validate_script.py "$ANTIGRAVITY_STAGE/scripts/"
+find "$ANTIGRAVITY_STAGE" -exec touch -t 202601010000 {} +
+
+ANTIGRAVITY_WORKSPACE="$ROOT/.agents/skills/$SKILL_NAME"
+mkdir -p "$ANTIGRAVITY_WORKSPACE/references" "$ANTIGRAVITY_WORKSPACE/scripts"
+cp "$ANTIGRAVITY_STAGE/SKILL.md" "$ANTIGRAVITY_WORKSPACE/SKILL.md"
+cp "$ANTIGRAVITY_STAGE/references/combined-skills-fallback.md" "$ANTIGRAVITY_WORKSPACE/references/combined-skills-fallback.md"
+cp "$ANTIGRAVITY_STAGE/scripts/validate_script.py" "$ANTIGRAVITY_WORKSPACE/scripts/validate_script.py"
+
+mkdir -p "$ROOT/bundles/antigravity"
+rm -f "$ROOT/bundles/antigravity/$SKILL_NAME.zip"
+( cd "$STAGE/antigravity" && find "$SKILL_NAME" -type f | LC_ALL=C sort \
+    | zip -qX -D "$ROOT/bundles/antigravity/$SKILL_NAME.zip" -@ )
+printf 'build: wrote .agents/skills/%s/ and bundles/antigravity/%s.zip (%s bytes)\n' \
+  "$SKILL_NAME" "$SKILL_NAME" "$(wc -c < "$ROOT/bundles/antigravity/$SKILL_NAME.zip" | tr -d ' ')"
+
+# ---------------------------------------------------------------------------
+# 4. Rebuild short-form-script-writer-pro.skill (Claude.ai / Cowork .skill archive)
 # ---------------------------------------------------------------------------
 CLAUDE_BUNDLE="$STAGE/claude/$SKILL_NAME"
 mkdir -p "$CLAUDE_BUNDLE/references" "$CLAUDE_BUNDLE/scripts"

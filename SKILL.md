@@ -15,7 +15,8 @@ Write tight, natural spoken-English voiceover scripts for Instagram Reels, TikTo
 
 Nothing in this skill is locked to a single model or vendor. The exact same protocol ships across four surfaces, kept in sync by `tools/check.sh`:
 
-- **`SKILL.md` (this file)** — Native skill entry point for **Claude** (Claude Code, Claude.ai / Cowork via `short-form-script-writer-pro.skill`), **Gemini Skills** (via `bundles/short-form-script-writer-pro.zip`), **Codex**, **Cursor**, and **OpenCode**.
+- **`SKILL.md` (this file)** — Native skill entry point for **Google Antigravity** (workspace package at `.agents/skills/short-form-script-writer-pro/`), **Claude** (Claude Code, Claude.ai / Cowork via `short-form-script-writer-pro.skill`), **Gemini Skills** (via `bundles/short-form-script-writer-pro.zip`), **Codex**, **Cursor**, and **OpenCode**.
+- **Google Antigravity** discovers the bundled skill automatically from `.agents/skills/short-form-script-writer-pro/`; use `/short-form-script-writer-pro` where slash commands are supported, or let Antigravity select it from the task. For global installs, use `~/.gemini/config/skills/short-form-script-writer-pro/`.
 - **`AGENTS.md`** — Universal repository instructions read natively by **Codex**, **Cursor**, **GitHub Copilot**, **Gemini CLI**, **Kimi CLI**, **Windsurf**, **Amp**, **Cline**, and **Devin**.
 - **`portable/`** — Zero-file, copy-paste prompt blocks sized to the exact character limits of **Gemini Gems** (`portable/gemini-gem-instructions.md`), **ChatGPT** Custom GPTs / Projects / Custom Instructions (`portable/system-prompt.md`, `portable/chatgpt-instructions.md`, `portable/mini-prompt.md`), **Kimi / Kimi+** (`portable/kimi-instructions.md`), and any plain chat window (`portable/kickoff-prompt.md`).
 - **`llms.txt` & `llms-full.txt`** — Single-file corpus you can drop straight into **Kimi**, **ChatGPT**, **Gemini**, **Claude Projects**, **DeepSeek**, **Grok**, **Perplexity**, or any RAG / API knowledge base.
@@ -26,7 +27,7 @@ This workflow combines three capabilities and adapts automatically to whichever 
 
 1. **Recent-discourse research (`last30days` or native web search):**
    - On Claude skill hosts where `/mnt/skills/plugins/last30days/SKILL.md` is installed, read and use it.
-   - On **Gemini, ChatGPT, Kimi, Perplexity, Grok, or any browsing-enabled agent**, use the host's built-in web/search capability scoped to discussions from the last 30 days (see `references/combined-skills-fallback.md`).
+   - On **Gemini, Google Antigravity, ChatGPT, Kimi, Perplexity, Grok, or any browsing-enabled agent**, use the host's built-in web/search capability when available, scoped to discussions from the last 30 days (see `references/combined-skills-fallback.md`).
    - On offline hosts with no search access, sharpen the hook and angle directly from tensions in the user's input without inventing recent trends.
 2. **AI-tell removal (`humanizer` or built-in rewrite pass):**
    - On Claude skill hosts where `/mnt/skills/plugins/humanizer/SKILL.md` is installed, read and apply it in embedded mode.
@@ -70,7 +71,7 @@ Extract the five inputs above from the user's request.
 
 ### 2. Research *(only if the user asks for current or trending context)*
 Skip this step entirely unless the user asks for current, recent, or trending context.
-- **When requested:** Use `/mnt/skills/plugins/last30days/SKILL.md` if readable; otherwise use the host's native web search (Google Search in Gemini, Web Search in ChatGPT, `联网搜索` in Kimi, or `WebSearch` tools) to check what people have been saying about the topic over the last 30 days (recurring frustrations, everyday phrasing, and tension points).
+- **When requested:** Use `/mnt/skills/plugins/last30days/SKILL.md` if readable; otherwise use the host's native web/search capability when available (Google Search in Gemini or Antigravity, Web Search in ChatGPT, `联网搜索` in Kimi, or `WebSearch` tools) to check what people have been saying about the topic over the last 30 days (recurring frustrations, everyday phrasing, and tension points).
 - **Strict research boundary:** Use findings **only** to sharpen the **Hook** and **angle**. **Do not add research facts, statistics, quotes, study names, or claims to the script unless the user explicitly approves them.**
 
 ### 3. Draft
@@ -87,7 +88,7 @@ Use `/mnt/skills/plugins/humanizer/SKILL.md` (embedded mode) if readable; otherw
 ### 5. Validate
 Verify the humanized draft against every item in the Validation Checklist below.
 - Count **spoken words only** (exclude the five beat labels).
-- When a Python shell and this repository's `scripts/validate_script.py` are available, run `python3 scripts/validate_script.py` with `--duration <seconds>` (and `--locked-text "<phrase>"` for any user-approved lines). In chat-only hosts (Gemini, ChatGPT, Kimi, web projects), count spoken words beat by beat and verify every checklist rule manually before responding.
+- When a Python shell is available, resolve the actual directory containing the loaded `SKILL.md`, run its bundled `scripts/validate_script.py --help`, then validate with `--duration <seconds>` (and `--locked-text "<phrase>"` for any user-approved lines). Substitute the actual skill path rather than typing a placeholder. In this repository the Antigravity copy is at `.agents/skills/short-form-script-writer-pro/scripts/validate_script.py`; a global Antigravity install is at `~/.gemini/config/skills/short-form-script-writer-pro/scripts/validate_script.py`. In chat-only hosts or Antigravity sessions without shell access, count spoken words beat by beat and verify every checklist rule manually before responding.
 - Fix every failure before producing output, then re-verify until every check passes.
 
 ### 6. Output

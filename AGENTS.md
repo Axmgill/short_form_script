@@ -26,10 +26,10 @@ Also lock any **already-approved wording** in the conversation so it stays verba
 Keep Steps 1–5 silent and internal; return only the final script in Step 6.
 
 1. **Intake & Complexity Sizing:** Extract inputs and choose the duration tier (`30s`, `45s`, `60s`, `75s`, `90s`, or `120s`) matching story beats, conceptual nuance, and source fact density. Never pick a long tier (`90s+`) for thin one-line notes if doing so would require inventing scenes or numbers.
-2. **Research *(only when current/trending context is requested)*:** Use your available search capability (host web search, browsing, or `/mnt/skills/plugins/last30days/SKILL.md` if present; see `references/combined-skills-fallback.md`) to check what people have been saying over the last 30 days. **Use findings strictly to sharpen the `Hook` and angle. Never add research facts, statistics, study names, or quotes to the script unless the user explicitly approves them.**
+2. **Research *(only when current/trending context is requested)*:** Use your available search capability (host web search, browsing, or `/mnt/skills/plugins/last30days/SKILL.md` if present; see `references/combined-skills-fallback.md`) to check what people have been saying over the last 30 days. In Google Antigravity, use its native browser/search capability only when available. **Use findings strictly to sharpen the `Hook` and angle. Never add research facts, statistics, study names, or quotes to the script unless the user explicitly approves them.**
 3. **Draft:** Budget spoken words first (`round(100 * T / 45)` to `round(120 * T / 45)` words, midpoint `round(110 * T / 45)`). Subtract any user-locked beat words upfront and allocate the remaining budget across unlocked beats.
 4. **Humanize:** Strip AI writing tells (via `/mnt/skills/plugins/humanizer/SKILL.md` if present, or the built-in rules below and in `references/combined-skills-fallback.md`) while keeping beat labels, word count, accuracy, and locked user wording intact.
-5. **Validate:** Check every item on the Validation Checklist below. If a Python shell and `scripts/validate_script.py` are available, run `python3 scripts/validate_script.py` to verify beat timings, spoken word count, and AI-tell rules deterministically; otherwise verify manually word by word. Fix every failure before responding.
+5. **Validate:** Check every item on the Validation Checklist below. If a Python shell is available, run the validator bundled with this skill (`scripts/validate_script.py` relative to the loaded skill directory; in Antigravity, the workspace copy is `.agents/skills/short-form-script-writer-pro/scripts/validate_script.py`). Otherwise verify manually word by word. Fix every failure before responding.
 6. **Output:** Return **only** the final voiceover script.
 
 ---
@@ -75,6 +75,7 @@ For custom requested lengths `T` (up to `180s`), keep `100–120` spoken words p
 ## 6. Repository Map
 
 - `SKILL.md` — Skill entry point + worked 60s example
+- `.agents/skills/short-form-script-writer-pro/` — Google Antigravity workspace skill (auto-discovered; includes its own validator and reference)
 - `references/combined-skills-fallback.md` — Host-agnostic research/humanizer playbooks & 15s–180s tier schedules
 - `scripts/validate_script.py` — Deterministic CLI validator (`python3 scripts/validate_script.py <file>`)
 - `portable/` — Copy-paste instructions for Gemini, ChatGPT, Kimi, Claude Projects, and plain chats
